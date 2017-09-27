@@ -1,0 +1,2 @@
+export DIB_RELEASE=trusty
+export DIB_DISTRIBUTION_MIRROR=http://archive.ubuntu.com/ubuntu
