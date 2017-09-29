@@ -1,2 +1,4 @@
 lvm2:
   phase: post-install.d
+xfsprogs:
+  phase: post-install.d
