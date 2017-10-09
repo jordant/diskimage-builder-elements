@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ${DIB_DEBUG_TRACE:-0} -gt 0 ]; then
+        set -x
+fi
+
+set -eu
+set -o pipefail
+
+
+KUBERNETES_CONF_FOLDER=/etc/kubernetes
+
+# At this point the `install-static` element during the
+# `install.d/10-install-static-files` phase has already
+# synced contents in the `static` folder
+
+# Make sure kubernetes folder exists
+mkdir -p $KUBERNETES_CONF_FOLDER
+
+# Make sure manifest folder exists
+mkdir -p $KUBERNETES_CONF_FOLDER/manifests
+
+#  Make sure ssl folder exists
+mkdir -p $KUBERNETES_CONF_FOLDER/ssl
+
+# Create log folder
+mkdir -p /var/log/kubernetes
