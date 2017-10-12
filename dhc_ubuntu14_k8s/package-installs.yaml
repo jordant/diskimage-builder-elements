@@ -1,0 +1,9 @@
+lvm2:
+  phase: post-install.d
+xfsprogs:
+  phase: post-install.d
+linux-image-extra-virtual:
+apt-transport-https:
+ca-certificates:
+software-properties-common:
+docker-ce:

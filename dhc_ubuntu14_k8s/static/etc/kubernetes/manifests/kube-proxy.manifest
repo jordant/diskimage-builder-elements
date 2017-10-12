@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-proxy
+  namespace: kube-system
+  labels:
+    k8s-app: kube-proxy
+spec:
+  hostNetwork: true
+  containers:
+  - name: kube-proxy
+    image: quay.io/coreos/hyperkube:v1.5.1_coreos.0
+    imagePullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 2000M
+      requests:
+        cpu: 150m
+        memory: 256M
+    command:
+    - /hyperkube
+    - proxy
+    - --v=2
+    - --master=https://69.163.248.97:443
+    - --kubeconfig=/etc/kubernetes/node-kubeconfig.yaml
+    - --bind-address=0.0.0.0
+    - --proxy-mode=iptables
+    - --masquerade-all
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /etc/ssl/certs
+      name: ssl-certs-host
+      readOnly: true
+    - mountPath: /etc/kubernetes/node-kubeconfig.yaml
+      name: "kubeconfig"
+      readOnly: true
+    - mountPath: /etc/kubernetes/ssl
+      name: "etc-kube-ssl"
+      readOnly: true
+    - mountPath: /var/run/dbus
+      name: "var-run-dbus"
+      readOnly: false
+  volumes:
+  - name: ssl-certs-host
+    hostPath:
+      path: /usr/share/ca-certificates
+  - name: "kubeconfig"
+    hostPath:
+      path: "/etc/kubernetes/node-kubeconfig.yaml"
+  - name: "etc-kube-ssl"
+    hostPath:
+      path: "/etc/kubernetes/ssl"
+  - name: "var-run-dbus"
+    hostPath:
+      path: "/var/run/dbus"
