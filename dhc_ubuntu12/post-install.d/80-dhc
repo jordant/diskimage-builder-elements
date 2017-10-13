@@ -21,7 +21,7 @@ EOF
 cat >> /etc/cloud/cloud.cfg.d/99_dreamcompute_common.cfg << EOF
 # Configuration for DreamCompute.
 apt_preserve_sources_list: true
-manage_etc_hosts: template
+manage_etc_hosts: false
 datasource_list: [ ConfigDrive ]
 datasource:
   ConfigDrive:
